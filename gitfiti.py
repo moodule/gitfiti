@@ -121,7 +121,7 @@ HEART1 = [
   [1,3,4,4,4,3,1],
   [0,1,3,4,3,1,0],
   [0,0,1,3,1,0,0],
-  [0,0,0,1,0,0,0],        
+  [0,0,0,1,0,0,0],
 ]
 
 HEART2 = [
@@ -131,7 +131,7 @@ HEART2 = [
   [5,3,1,1,1,3,5],
   [0,5,3,1,3,5,0],
   [0,0,5,3,5,0,0],
-  [0,0,0,5,0,0,0],        
+  [0,0,0,5,0,0,0],
 ]
 
 HIREME = [
@@ -183,6 +183,15 @@ HEART_SHINY = [
   [0,0,4,2,4,0,0],
   [0,0,0,4,0,0,0],
 ]
+
+PYTHON = [
+    [0, 2, 2, 2, 2, 2, 0],
+    [2, 2, 2, 2, 2, 3, 4],
+    [2, 2, 2, 2, 2, 4, 4],
+    [2, 2, 3, 3, 3, 4, 4],
+    [2, 3, 4, 4, 4, 4, 4],
+    [2, 4, 4, 4, 4, 4, 4],
+    [0, 4, 4, 4, 4, 4, 0]]
 
 ASCII_TO_NUMBER = {
   '_': 0,
@@ -237,8 +246,9 @@ IMAGES = {
   'oneup_str': ONEUP_STR,
   'beer': BEER,
   'gliders': GLIDERS,
-  'heart' : HEART, 
+  'heart' : HEART,
   'heart_shiny' : HEART_SHINY,
+  'python': PYTHON,
 }
 
 SHELLS = {
@@ -348,7 +358,7 @@ def generate_values_in_date_order(image, multiplier=1):
 
     for w in range(width):
         for h in range(height):
-            yield image[h][w] * multiplier
+            yield image[h][w] * 16
 
 
 def commit(commitdate, shell):
@@ -356,7 +366,7 @@ def commit(commitdate, shell):
         '''GIT_AUTHOR_DATE={0} GIT_COMMITTER_DATE={1} '''
         '''git commit --allow-empty -m "gitfiti" > /dev/null\n'''
     )
-    
+
     template_powershell = (
         '''$Env:GIT_AUTHOR_DATE="{0}"\n$Env:GIT_COMMITTER_DATE="{1}"\n'''
         '''git commit --allow-empty -m "gitfiti" | Out-Null\n'''
@@ -488,9 +498,9 @@ def main():
         git_url = 'git@github.com'
     else:
         git_url = request_user_input('Enter Git URL like git@site.github.com: ')
-        
+
     shell = ''
-    while shell not in SHELLS.keys(): 
+    while shell not in SHELLS.keys():
         shell = request_user_input(
             'Enter the target shell ({}): '.format(' or '.join(SHELLS.keys())))
 
